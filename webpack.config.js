@@ -4,7 +4,7 @@ const path = require('path')
 const common = {
     target: "web",
     entry: "./src/index.ts",
-    devtool: "source-map",
+    devtool: false,
     resolve: {
         mainFields: ["browser", "module", "main"],
         extensions: [".ts", ".js"],
@@ -34,6 +34,7 @@ const config = [
             path: path.resolve(__dirname, "dist/commonjs"),
             filename: "index.js",
             libraryTarget: "commonjs2",
+            clean: true
         },
     },
     {
@@ -43,7 +44,8 @@ const config = [
             filename: "index.js",
             library: {
                 type: "module"
-            }
+            },
+            clean: true
         },
         experiments: {
             outputModule: true

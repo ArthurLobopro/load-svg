@@ -9,9 +9,7 @@
   "version": "1.0.0",
   "keywords": [],
   "scripts": {
-    "build:commonjs": "tsc -p ./tsconfig.json",
-    "build:esm": "tsc -p ./tsconfig.esm.json",
-    "build": "yarn build:commonjs && yarn build:esm",
+    "build": "yarn webpack --mode development",
     "prepack": "yarn build"
   },
   "author": "Arthur Lobo",
