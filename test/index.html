@@ -16,29 +16,49 @@
             padding: 0;
             margin: 0;
         }
-        
-        body{
+
+        body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 8px;
         }
+
+        svg,
+        load-svg {
+            outline: 1px solid red;
+        }
     </style>
 </head>
 
 <body>
-    <h2>
+    <h2>Load Test</h2>
+    <h3>
         Load SVG
-    </h2>
+    </h3>
     <div>
         <load-svg src='./link.svg'></load-svg>
         <load-svg src='./unlink.svg'></load-svg>
     </div>
-    <h2>Insert SVG</h2>
+    <h3>Insert SVG</h3>
     <div>
         <insert-svg src='./link.svg'></insert-svg>
         <insert-svg src='./unlink.svg'></insert-svg>
+    </div>
+
+    <h2>Width & Height test</h2>
+    <h3>
+        Load SVG
+    </h3>
+    <div>
+        <load-svg src='./link.svg' width="32" height="32"></load-svg>
+        <load-svg src='./unlink.svg' width="64" height="64"></load-svg>
+    </div>
+    <h3>Insert SVG</h3>
+    <div>
+        <insert-svg src='./link.svg' width="32" height="32"></insert-svg>
+        <insert-svg src='./unlink.svg' width="64" height="64"></insert-svg>
     </div>
 </body>
 
