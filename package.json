@@ -1,5 +1,5 @@
 {
-  "name": "load-svg",
+  "name": "@arthur-lobo/load-svg",
   "version": "1.0.0",
   "description": "WebComponent to load svg on HTML",
   "license": "MIT",
@@ -29,5 +29,8 @@
     "typescript": "^5.3.3",
     "webpack": "^5.90.0",
     "webpack-cli": "^5.1.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
