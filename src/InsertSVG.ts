@@ -1,11 +1,4 @@
-function textToSVG(svgText: string): SVGElement {
-    const parser = new DOMParser()
-    const docElem = parser.parseFromString(svgText, "text/xml").documentElement
-
-    const node = docElem
-    document.importNode(node, true)
-    return node as unknown as SVGElement
-}
+import { textToSVG } from "./textToSVG"
 
 export class InsertSVG extends HTMLElement {
     static observedAttributes = ["src"];
