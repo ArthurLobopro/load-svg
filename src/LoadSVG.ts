@@ -1,12 +1,25 @@
 import { textToSVG } from "./textToSVG"
 
+const styles = new CSSStyleSheet()
+
+styles.replaceSync(`
+  :host {
+    display: inline-flex;
+  }
+  svg{
+    width: 100%;
+    height: 100%;
+  }
+`)
+
 export class LoadSVG extends HTMLElement {
-    static observedAttributes = ["src"];
+    static observedAttributes = ["src", "width", "height"];
 
     constructor() {
         super()
 
         this.attachShadow({ mode: "open" })
+            .adoptedStyleSheets = [styles]
     }
 
     connectedCallback() {
@@ -15,13 +28,20 @@ export class LoadSVG extends HTMLElement {
         }
     }
 
+    updateSize() {
+        if (this.hasAttribute("width")) {
+            this.style.width = this.getAttribute("width") + "px"
+        }
+
+        if (this.hasAttribute("height")) {
+            this.style.height = this.getAttribute("height") + "px"
+        }
+    }
+
     async build() {
         const svg_el = await this.getSvgElement()
 
-        //@ts-ignore
-        this.style.width = this.getAttribute("width") || svg_el.width
-        //@ts-ignore
-        this.style.height = this.getAttribute("height") || svg_el.height
+        this.updateSize()
 
         if (this.shadowRoot?.firstChild) {
             this.shadowRoot.replaceChild(svg_el, this.shadowRoot.firstChild)
@@ -44,8 +64,14 @@ export class LoadSVG extends HTMLElement {
     attributeChangedCallback(name: string, oldValue: any, newValue: any) {
         console.log(`Attribute ${name} has changed.`)
 
-        if (name === "src" && oldValue !== newValue) {
+        if (
+            name === "src" && oldValue !== newValue
+        ) {
             this.build()
+        }
+
+        if (["width", "height"].includes(name)) {
+            this.updateSize()
         }
     }
 }
