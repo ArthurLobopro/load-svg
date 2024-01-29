@@ -1,6 +1,6 @@
 {
   "name": "@arthur-lobo/load-svg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "WebComponent to load svg on HTML",
   "license": "MIT",
   "author": "Arthur Lobo <64273139+ArthurLobopro@users.noreply.github.com>",
