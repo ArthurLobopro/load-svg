@@ -16,6 +16,14 @@ export class InsertSVG extends HTMLElement {
     async build() {
         const svg_el = await this.getSvgElement()
 
+        if (this.hasAttribute("width")) {
+            svg_el.setAttribute("width", this.getAttribute("width") as string)
+        }
+
+        if (this.hasAttribute("height")) {
+            svg_el.setAttribute("height", this.getAttribute("height") as string)
+        }
+
         this.replaceWith(svg_el)
     }
 
