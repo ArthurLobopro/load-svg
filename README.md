@@ -48,4 +48,6 @@ load-svg {
 
 ### insert-svg tag behavior
 
-`insert-svg` tags replace themselves per the loaded SVG like you manually inserted the SVG element in the HTML file. So, all SVG files loaded by `insert-svg` can be styled using CSS and also can be found using `document`.querySelector()`.
+`insert-svg` tags replace themselves per the loaded SVG like you manually inserted the SVG element in the HTML file. 
+
+So, all SVG files loaded by `insert-svg` can be styled using CSS and also can be found using `document`.querySelector()`.
