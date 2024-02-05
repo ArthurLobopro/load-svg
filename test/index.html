@@ -60,6 +60,13 @@
         <insert-svg src='./link.svg' width="32" height="32"></insert-svg>
         <insert-svg src='./unlink.svg' width="64" height="64"></insert-svg>
     </div>
+
+    <h2>Cache Test</h2>
+    <div>
+        <load-svg src='./link.svg' cache="reload"></load-svg>
+        <!-- Expect error on that -->
+        <load-svg src="./unlink.svg" cache="reroad"></load-svg>
+    </div>
 </body>
 
 </html>

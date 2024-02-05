@@ -12,6 +12,24 @@ styles.replaceSync(`
   }
 `)
 
+const cacheStrings = ["default", "force-cache", "no-cache", "no-store", "only-if-cached", "reload"]
+
+export const loadSvgDefaultBehavior = {
+    __cache: "default" as RequestCache,
+
+    get cache(): RequestCache {
+        return this.__cache
+    },
+
+    set cache(cache: RequestCache) {
+        if (cacheStrings.includes(cache)) {
+            this.__cache = cache
+        } else {
+            console.warn(`${cache} is not a valid cache value, keeping atual behavior`)
+        }
+    }
+}
+
 export class LoadSVG extends HTMLElement {
     static observedAttributes = ["src", "width", "height"];
 
@@ -53,9 +71,22 @@ export class LoadSVG extends HTMLElement {
     async getSvgElement(): Promise<SVGElement> {
         const src = this.getAttribute("src") as string
 
-        const svg_text = await fetch(src, { method: "GET" }).then((svg) =>
-            svg.text(),
-        )
+        const cache = (() => {
+            if (this.hasAttribute("cache")) {
+                const cacheValue = this.getAttribute("cache") as string
+
+                if (cacheStrings.includes(cacheValue)) {
+                    return cacheValue
+                }
+
+                console.warn(`${cacheValue} is not a valid cache value, using default behavior`)
+            }
+
+            return loadSvgDefaultBehavior.cache
+        })() as RequestCache
+
+        const svg_text = await fetch(src, { method: "GET", cache })
+            .then((svg) => svg.text())
         const svg_el = textToSVG(svg_text)
 
         return svg_el
