@@ -1,40 +1,46 @@
-import { textToSVG } from "./textToSVG"
+import { textToSVG } from "./textToSVG";
 
 export class InsertSVG extends HTMLElement {
     static observedAttributes = ["src"];
 
     constructor() {
-        super()
+        super();
     }
 
     connectedCallback() {
         if (this.hasAttribute("src")) {
-            this.build()
+            this.build();
         }
     }
 
     async build() {
-        const svg_el = await this.getSvgElement()
+        const svg_el = await this.getSvgElement();
 
         if (this.hasAttribute("width")) {
-            svg_el.setAttribute("width", this.getAttribute("width") as string)
+            svg_el.setAttribute("width", this.getAttribute("width") as string);
         }
 
         if (this.hasAttribute("height")) {
-            svg_el.setAttribute("height", this.getAttribute("height") as string)
+            svg_el.setAttribute("height", this.getAttribute("height") as string);
         }
 
-        this.replaceWith(svg_el)
+        for (const atrName of this.getAttributeNames()) {
+            if (/^data-/.test(atrName)) {
+                svg_el.setAttribute(atrName, this.getAttribute(atrName)!);
+            }
+        }
+
+        this.replaceWith(svg_el);
     }
 
     async getSvgElement(): Promise<SVGElement> {
-        const src = this.getAttribute("src") as string
+        const src = this.getAttribute("src") as string;
 
         const svg_text = await fetch(src, { method: "GET" }).then((svg) =>
             svg.text(),
-        )
-        const svg_el = textToSVG(svg_text)
+        );
+        const svg_el = textToSVG(svg_text);
 
-        return svg_el
+        return svg_el;
     }
 }
